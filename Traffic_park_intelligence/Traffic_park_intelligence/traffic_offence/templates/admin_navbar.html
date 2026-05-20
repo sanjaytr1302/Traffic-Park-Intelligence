@@ -1,0 +1,46 @@
+{% block home_navbar %}
+<header id="header">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<div id="logo">
+						<a href="#" class="standard-logo" data-dark-logo="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png"><img src="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png" alt="Canvas Logo"></a>
+						<a href="#" class="retina-logo" data-dark-logo="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png"><img src="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png" alt="Canvas Logo"></a>
+					</div><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu" class="sub-title">
+						<ul>
+						<li class="current"><a href="{% url 'admin_home' %}"><div>Found Vehicles</div></a>
+							</li>
+                            <li><a href="{% url 'admin_addfine' %}"><div>Add Fine</div></a>
+                                                
+                            </li>
+                            <li><a href="{% url 'admin_createtraffic_pol'%}"><div>Create Traffic Police</div></a>
+                                
+                            </li>
+                            <li ><a href="viewComplaints.php"><div>View Complaints </div></a>
+                                
+                            </li>
+                            
+                            <li class=""><a href="{% url 'logout' %}"><div>Logout</div></a></li>
+							
+						
+						</ul>
+
+					</nav>
+                    
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+		
+						{% endblock %}

@@ -1,0 +1,341 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	{% block external_css %}
+    {% include 'extern_files.html' %}
+    {% endblock %}
+
+	<script>
+function add(){
+var a,b,c;
+a=Number(document.getElementById("first").value);
+b=Number(document.getElementById("fine").value);
+c= a + b;
+document.getElementById("answer").value= c;
+}
+</script>
+</head>
+
+<body class="stretched">
+
+
+<div id="" class="clearfix">
+		<!-- Header
+		============================================= -->
+			<header id="header">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<div id="logo">
+						<a href="index.html" class="standard-logo" data-dark-logo="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png"><img src="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png" alt="Canvas Logo"></a>
+						<a href="index.html" class="retina-logo" data-dark-logo="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png"><img src="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png" alt="Canvas Logo"></a>
+					</div><!-- #logo end -->
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu" class="sub-title">
+
+						<ul>
+							<li class="current"><a href="{% url 'traffic_home' %}"><div>Home</div></a>
+								
+							</li>
+							
+							
+							<li class="mega-menu"><a href="{% url 'logout' %}" ><strong><div style="color:black;">Logout</div></strong></a>
+								
+							</li>
+							
+						</ul>
+
+						<!-- Top Cart
+						============================================= -->
+					
+
+						<!-- Top Search
+						============================================= -->
+				
+					</nav><!-- #primary-menu end -->
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+		
+
+
+		
+		
+		</div>
+			<section id="content">
+
+			<div class="content-wrap" style="padding-top:60px; padding-bottom:0px;" >
+
+				<div class="section header-stick"  style="background-image:url('https://c4.wallpaperflare.com/wallpaper/922/533/179/street-lamp-night-darkness-wallpaper-preview.jpg');background-repeat:no-repeat;background-size:100% 800px; background-position:center; background-width:100%;background-height:800px; padding:40px 0px; margin-top:110px; margin-bottom:10px!important;">
+					<div class="container clearfix">
+						<div class="row">
+
+							<div class="col-md-12" >
+								<div class="heading-block bottommargin-sm dark"">
+									<h3>WEAR HELMET, STAY SAFE!  <br/> THAT’S THE ROAD SAFETY MESSAGE THIS GIANT HELMET HOPES TO PROPAGATE</h3>
+								</div>
+
+								<p class="nobottommargin dark"">Wearing of Protective Helmet - Every person driving or riding otherwise than in a side car, on a motor cycle of any class or description, shall, while in a public place, wear protective Helmet conforming to the standards of Bureau of Indian Standards:</p>
+							</div>
+<!--
+							<div class="col-md-3">
+								<a href="#" class="button button-3d button-dark button-large btn-block center" style="margin-top: 30px;">Check our Services</a>
+							</div>
+-->
+						</div>
+					</div>
+				</div>
+				</div>
+				</div>
+				</div>
+				
+				
+<div class="container">
+	<div class="row" >
+		<div class="col-sm-offset-3 col-sm-6"  style="background-color: dodgerblue; padding:40px 10px 10px; border-radius: 10px;;">
+
+
+
+	<form method="post" action="{% url 'traffic_home' %}"  name="form2">
+		{% csrf_token %}
+		<div class="row">
+			<div class="col-md-8">
+		<input type="text" name="Vehicle_num" class="form-control" placeholder="Enter Vehicle No" />
+	</div>
+	<div class="col-md-4">
+		<input type="submit" name="submit" value="Check Complaints" class="btn btn-danger form-control"/>
+		</div>
+		</div>
+   </form>
+   </div>
+   {% if messages %}			    
+   {% for msg in messages %}
+   <script>alert('{{ msg|safe }}');</script>
+ {% endfor %}	
+ {% endif  %}
+   <div class="col-md-12">
+
+	
+   <table class="table table-striped" style="margin-top:10px;">
+	<tr><th colspan="7">Public Raised Complaits</th></tr>
+   <tr>
+	  <th>Vehicle No</th>
+	  <th>Violation Date</th>
+	  <th>Violation Place</th>
+	  <th>Violation type</th>
+	  <th>Violation Description</th>
+	  <th>Fine</th>
+	  <th>Pic</th>
+	  
+  </tr>
+
+ 
+  	{% for i in check_traffic_offence %}
+
+	<tr>
+		<td>{{ i.vehicle_regno }}</td>
+		<td>{{ i.violation_date }}</td>
+		<td>{{ i.violation_place }}</td> 
+		<td>{{ i.violation_type }}</td>
+		<td>{{ i.violation_desc }}</td>
+		<td>{{ i.fine }}</td>
+
+		<td><a href="{{ i.violation_pic.url }}" target="_blank"><img src="{{ i.violation_pic.url }}" alt="image not attached" width="100%" height="200">Click here to view</a></td>
+	</tr>
+	{% endfor %}
+	  </table>				
+
+ 	<!-- Addition Of Complaints Fine Code Starts Here -->
+	
+
+
+
+			
+<div class="container">
+	<div class="col-md-offset-1 col-md-10">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Complaint Form</h3>
+			</div>
+			<div class="panel-body">
+	<form name="collectfine" class="form-horizontal" method="post" action="{% url 'receipt' %}" >				
+		{% csrf_token %}
+		<input type="text" hidden name="police_id"  value="{{ user_data.username }}"  />
+		
+		<input type="text"  hidden name="police_name"  value="{{ user_data.name  }}"  />
+		
+  <div class="form-group">
+    <label class="col-sm-offset-2 col-sm-2" >Vehicle Reg No:</label>
+    <div class="col-sm-6">
+      <input type="text" class="form-control"  name="Vregno" value="{{  v_num }}" />
+	<!-- <input type="text" class="form-control"  name="Vregno" placeholder="Please Enter the Vehicle num" />-->
+	  
+	  
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-offset-2 col-sm-2" >Old Complaint Fine</label>
+    <div class="col-sm-6">
+      	<input type="text" class="form-control"  name="oldfin" value="" id="first" />
+    </div>
+  </div>
+
+
+				
+				
+
+
+  <div class="form-group">
+    <label class="col-sm-offset-2 col-sm-2" for="category">Vehicle Type</label>
+    <div class="col-sm-6">
+    
+		<select id="category" name="category" class="form-control">
+			<option value="">-- Select Category --</option>
+			{% for offence in offences %}
+				<option value="{{ offence.category }}">{{ offence.category }}</option>
+			{% endfor %}
+		</select>
+
+		
+    </div>
+  </div>   
+  
+
+     <div class="form-group">
+    <label class="col-sm-offset-2 col-sm-2" label="sub_category">Complaint Type</label>
+    <div class="col-sm-6">
+      	<!-- SUBCATEGORY DROPDOWN -->
+
+		  <select id="sub_category" class="form-control" name="sub_category">
+			  <option value="">-- Select Subcategory --</option>
+		  </select>
+    </div>
+  </div>
+
+  
+
+   <div class="form-group">
+    <label class="col-sm-offset-2 col-sm-2" >Current Fine</label>
+    <div class="col-sm-6">
+	<!-- FINE AMOUNT -->
+	<label for="fine">Fine Amount:</label>
+	<input type="text" id="fine" name="fine" readonly>
+
+	
+    </div>
+  </div>
+
+
+
+  
+						
+								
+						
+								
+						
+								
+								
+		
+								<script>
+									$(document).ready(function() {
+										// When category is changed, load subcategories
+										$("#category").change(function() {
+											var category = $(this).val();
+							
+											$.ajax({
+												url: "{% url 'load_subcategories' %}",
+												data: {"category": category},
+												dataType: "json",
+												success: function(data) {
+													var subcategoryDropdown = $("#sub_category");
+													subcategoryDropdown.empty();
+													subcategoryDropdown.append('<option value="">-- Select Subcategory --</option>');
+													
+													$.each(data.subcategories, function(index, subcategory) {
+														subcategoryDropdown.append('<option value="' + subcategory.sub_category + '">' + subcategory.sub_category + '</option>');
+													});
+												}
+											});
+										});
+							
+										// When subcategory is changed, load fine amount
+										$("#sub_category").change(function() {
+											var sub_category = $(this).val();
+							
+											$.ajax({
+												url: "{% url 'load_fine' %}",
+												data: {"sub_category": sub_category},
+												dataType: "json",
+												success: function(data) {
+													$("#fine").val(data.fine);
+												}
+											});
+										});
+									});
+								</script>
+
+  <div class="form-group">
+		<div class="col-sm-offset-2 col-sm-2" ><input type="button" value="Calculate" class="btn btn-primary btn-block"  onclick="add()"/></div>
+		 <label class="col-sm-3" >Total Amount to be Paid</label>
+		<div class="col-sm-3">
+			<input type="number" class="form-control" required  name="TotalPrice" id="answer"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-3">
+		  <input type="submit" class="btn 	btn-success btn-block"  name="sub" id="answer"/>
+		</div>
+		
+		
+		<div class="col-sm-5"></div>
+	</div>
+  </div>
+ </form>
+
+ </div>
+</div>
+</div>
+</div>
+
+
+
+		</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+		
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script type="text/javascript" src="js/functions.js"></script>
+<script>
+	function form_reload(){
+	window.alert('Previous Data will be Cleared');
+	window.location='traffic.php';
+}
+</script>
+</body>
+</html>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,267 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	{% block external_css %}
+    {% include 'extern_files.html' %}
+    {% endblock %}
+	<style>
+		.pageheader{
+			padding:60px 10px;
+			margin:0px;
+		}
+		.bg-primary {
+    background-color: #337ab7b3!important;
+		}
+		.well{
+			color:white!important;
+			background-color: rgba(59, 56, 53, 0.64)!important;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+		
+		.well input{
+			color:white!important
+		}
+		</style>
+
+</head>
+<body class="stretched">
+
+<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- Header
+		============================================= -->
+		<header id="header">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<div id="logo">
+						<a href="" class="standard-logo" data-dark-logo="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png"><img src="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png" alt="Canvas Logo"></a>
+						<a href="" class="retina-logo" data-dark-logo="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png"><img src="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png" alt="Canvas Logo"></a>
+					</div><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu" class="sub-title">
+						<ul>
+						
+							<li class="current"><a href="{% url 'rto_home' %}"><div>Register Vehicles</div></a></li>
+							<li class=""><a href="{% url 'rto_view_reg_veh' %}"><div>View Registerd Vehicles</div></a></li>
+							<li class=""><a href="{% url 'logout' %}"><div>Logout</div></a></li>
+						
+						</ul>
+
+					</nav>
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+		
+				    
+	{% for msg in messages %}
+	<script>alert('{{ msg|safe }}');</script>
+  {% endfor %}		
+		<section id="content"style="margin: 0px; background-size: cover; background-position:fixed; background-image: url('https://thumbs.dreamstime.com/b/cars-queue-gas-station-sunset-row-vehicles-refuel-filling-evening-twilight-scene-urban-commute-automotive-industry-367124912.jpg'); padding: 0px;" >
+		
+					<div class="container-fluid clearfix">
+						<div class="row">
+							<div class="col-md-12 " style="padding:0px;"  align="center">
+								<h2  class="bg-primary pageheader">Welcome,  RTO Admin</h2>
+								</div>
+								</div>
+								</div>
+
+		<!-- Content
+		============================================= -->
+					<div class="container clearfix">
+						<div class="row">
+							<div class="col-md-12 dark" >
+							
+
+
+							<div class="well" style="margin-top:10px">
+
+								<div class="dark" id="regvehicle">
+									<h2 align="center" class="">Vehicle Registration By RTO</h2><br/>
+									</div>
+			<form class="form-horizontal" action="rto_home" method="POST" name="cform" id="cForm" enctype="multipart/form-data">
+{% csrf_token %}
+				<div class="form-group">
+					<label class="col-sm-3" style="margin-top:4px;">Name</label>
+				<div class="col-sm-9">
+					<input class="form-control" required type="text" id="name" name="name" placeholder="Enter Vehicle Owner Name" />
+				</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3" style="margin-top:4px;">DOB</label>
+				<div class="col-sm-9">
+					<input class="form-control" required  type="date" id="dob" name="dob" placeholder="enter DOB" />
+				</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3" style="margin-top:4px;">Aadhar Card No</label>
+				<div class="col-sm-9">
+					<input class="form-control" maxlength="12" required  type="text" id="Aadhar_card_no" name="Aadhar_card_no" placeholder="" />
+				</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-3" style="margin-top:4px;">Emailid</label>
+				<div class="col-sm-9">
+					<input class="form-control" required  type="email" id="email" name="email"/>
+				</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-3" style="margin-top:4px;">Address</label>
+				<div class="col-sm-9">
+					<textarea class="form-control" required   id="address" name="address" placeholder="" /></textarea>
+				</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3" style="margin-top:4px;">City</label>
+				<div class="col-sm-9">
+				<!--	<input class="form-control" required  type="text" id="city" name="city" placeholder="" />	-->
+					<select class="form-control" required   id="city" name="city">
+						<option value="">--Select--</option>
+										<option value="Bagalkot">Bagalkot</option>
+<option value="Ballari">Ballari</option>
+<option value="Belagavi">Belagavi</option>
+<option value="Bengaluru Rural">Bengaluru Rural</option>
+<option value="Bengaluru Urban">Bengaluru Urban</option>
+<option value="Bidar">Bidar</option>
+<option value="Chamarajanagar">Chamarajanagar</option>
+<option value="Chikkaballapur">Chikkaballapur</option>
+<option value="Chikkamagaluru">Chikkamagaluru</option>
+<option value="Chitradurga">Chitradurga</option>
+<option value="Dakshina Kannada">Dakshina Kannada</option>
+<option value="Davanagere">Davanagere</option>
+<option value="Dharwad">Dharwad</option>
+<option value="Gadag">Gadag</option>
+<option value="Hassan">Hassan</option>
+<option value="Haveri">Haveri</option>
+<option value="Kalaburagi">Kalaburagi</option>
+<option value="Kodagu">Kodagu</option>
+<option value="Kolar">Kolar</option>
+<option value="Koppal">Koppal</option>
+<option value="Mandya">Mandya</option>
+<option value="Mysuru">Mysuru</option>
+<option value="Raichur">Raichur</option>
+<option value="Ramanagara">Ramanagara</option>
+<option value="Shivamogga">Shivamogga</option>
+<option value="Tumakuru">Tumakuru</option>
+<option value="Udupi">Udupi</option>
+<option value="Uttara Kannada">Uttara Kannada</option>
+<option value="Vijayapura">Vijayapura</option>
+<option value="Yadgir">Yadgir</option>
+
+
+									</select>
+				</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3" style="margin-top:4px;">State</label>
+				<div class="col-sm-9">
+					<!--<input class="form-control" required  type="text" id="state" name="state" placeholder="" />-->
+					<select class="form-control" required   id="state" name="state">
+						<option>--Select--</option>
+						<option value="Karnataka">Karnataka</option>
+						
+					</select>
+				</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3" style="margin-top:4px;">Vehicle Number</label>
+				<div class="col-sm-9">
+					<input class="form-control" maxlength="10" required  type="text" id="vhnum" name="vhnum" placeholder="" />
+				</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-3" maxlength="10" style="margin-top:4px;">Engine Number</label>
+				<div class="col-sm-9">
+					<input class="form-control" required  type="text" id="engnum" name="engnum" placeholder="" />
+				</div>
+				</div>
+
+					<div class="form-group">
+						<label class="col-sm-3" style="margin-top:4px;" >Vehicle Type</label>
+						<div class="col-sm-9">
+						<select class="form-control" required id="vno" name="vno" placeholder="" />
+						<option>--Select--</option><option value="Car">Car</option>
+							<option value="Scooter">Heavy_vehicle</option>
+							<option value="Bike">Bike</option>
+						</div>
+					</div>
+					<div class="form-group">
+					
+				<div class="col-sm-4 col-sm-offset-3">
+				
+					<input type="submit" style="margin-top:10px;" class="col-sm-4 col-sm-offset-3btn btn-primary btn-block" value="Register">
+				</div>	
+				</div>
+			</form>
+								</div>
+								
+
+							</div>
+
+						</div>
+
+
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+
+				
+
+			</div>
+
+		</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+		<footer id="footer" class="dark">
+</footer>
+		
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script type="text/javascript" src="js/functions.js"></script>
+
+</body>
+</html>

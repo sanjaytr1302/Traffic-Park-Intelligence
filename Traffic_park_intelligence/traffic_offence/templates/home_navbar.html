@@ -1,0 +1,118 @@
+{% block home_navbar %}
+{% for msg in messages %}
+<script>alert('{{ msg|safe }}');</script>
+{% endfor %}	
+<header id="header">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<div id="logo">
+						<a href="index.html" class="standard-logo" data-dark-logo="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png"><img src="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png" alt="Canvas Logo"></a>
+						<a href="index.html" class="retina-logo" data-dark-logo="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png"><img src="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png" alt="Canvas Logo"></a>
+					</div><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu" class="sub-title">
+						<ul>
+						<li class="current"><a href="{% url 'homepage' %}"><div>Home</div></a>
+							</li>
+							<li class=""><a href="find_my_complaints"><div>Find My Complaints</div></a></li>
+							<li class=""><a href="found_vehicle"><div>Found Vehicles</div></a></li>
+							<li class=""><a href="no_parking"><div>No Parking COmplaints</div></a></li>
+							
+							<li class="mega-menu"><a href="#myModal" data-toggle="modal"><strong><div>&nbsp;Login</div></strong></a>
+							</li>
+						</ul>
+
+					</nav>
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+		
+		
+		
+		
+		
+						<!-- Modal -->
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-body">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h1 class="modal-title" align="center">Welcome to <br/>	Traffic Park Intelligence</h1>
+										</div>
+										<div class="modal-body">
+											<h4 class="modal-title" align="center">Login to your Account</h4><br/>
+
+						<form action="{% url 'homepage' %}" method="post" name="loginForm" role="form">
+							{% csrf_token %}
+							<div class="input-group form-group col-xs-12 ">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								<input type="text" class="form-control" id="username" name="username" placeholder="Username" /> 
+							</div>
+						<!--<div class="input-group form-group col-xs-12 ">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+							<input type="password" class="form-control" id="password" name="password" placeholder="Password" /> 
+						</div>-->
+						<div class="input-group form-group col-xs-12">
+							<span class="input-group-addon" id="togglePassword" onclick="togglePassword()" style="  cursor: pointer;">
+								<i class="glyphicon glyphicon-eye-close" id="eyeIcon"></i>
+							</span>
+							<input type="password" class="form-control" id="pswd" name="password" placeholder="Password" />
+						</div>
+						<div class="input-group form-group col-xs-12 ">
+						<select name="role" id="select" class="form-control">
+								
+								   <option value="">--Select--</option>
+								   <option value="rto">RTO</option>
+								   <option value="admin">Admin</option>
+								   <option value="User">User</option>
+								   <option value="Traffic_Police">Traffic Police</option>
+								   <option value="Tiger_Vehicle">Tiger Vehicle</option>
+								   
+						</select>
+						</div>
+						<div class="form-group ">
+							<input type="submit" value="Login" class="form-control btn btn-success" /> 
+						</div>
+
+						
+						</form>				
+					<div class="" align="center">
+
+						<a href="userregister">Don't have an account..? Register Now</a>
+					</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<script>
+							function togglePassword() {
+								var passwordField = document.getElementById('pswd');
+								var eyeIcon = document.getElementById('eyeIcon');
+					
+								// Toggle the type of the input field
+								if (passwordField.type === "password") {
+									passwordField.type = "text";
+									eyeIcon.classList.remove("glyphicon-eye-close");
+									eyeIcon.classList.add("glyphicon-eye-open");
+								} else {
+									passwordField.type = "password";
+									eyeIcon.classList.remove("glyphicon-eye-open");
+									eyeIcon.classList.add("glyphicon-eye-close");
+								}
+							}
+						</script>
+						{% endblock %}

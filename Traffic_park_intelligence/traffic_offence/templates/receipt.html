@@ -1,0 +1,117 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	{% block external_css %}
+    {% include 'extern_files.html' %}
+    {% endblock %}
+
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .receipt { width: 300px; padding: 20px; border: 1px solid black; text-align: center; }
+        .receipt h2 { margin: 0; }
+        .details { text-align: left; margin-top: 10px; }
+        .details p { margin: 5px 0; }
+        .btn-print { margin-top: 10px; padding: 8px 15px; background: blue; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <body class="stretched">
+
+
+        <div id="" class="clearfix">
+                <!-- Header
+                ============================================= -->
+                    <header id="header">
+        
+                    <div id="header-wrap">
+        
+                        <div class="container clearfix">
+        
+                            <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+        
+                            <!-- Logo
+                            ============================================= -->
+                            <div id="logo">
+                                <a href="index.html" class="standard-logo" data-dark-logo="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png"><img src="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png" alt="Canvas Logo"></a>
+                                <a href="index.html" class="retina-logo" data-dark-logo="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png"><img src="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png" alt="Canvas Logo"></a>
+                            </div><!-- #logo end -->
+                            <!-- Primary Navigation
+                            ============================================= -->
+                            <nav id="primary-menu" class="sub-title">
+        
+                                <ul>
+                                    <li class="current"><a href="{% url 'traffic_home' %}"><div>Home</div></a>
+                                        
+                                    </li>
+                                    
+                                    
+                                    <li class="mega-menu"><a href="{% url 'logout' %}" ><strong><div style="color:black;">Logout</div></strong></a>
+                                        
+                                    </li>
+                                    
+                                </ul>
+        
+                                <!-- Top Cart
+                                ============================================= -->
+                            
+        
+                                <!-- Top Search
+                                ============================================= -->
+                        
+                            </nav><!-- #primary-menu end -->
+        
+                        </div>
+        
+                    </div>
+        
+                </header><!-- #header end -->
+                
+                <section id="content">
+
+                    <div class="content-wrap" style="padding-top:60px; padding-bottom:0px;" >
+        
+                        <div class="section header-stick"  style="background-image:url('https://c4.wallpaperflare.com/wallpaper/922/533/179/street-lamp-night-darkness-wallpaper-preview.jpg');background-repeat:no-repeat;background-size:100% 800px; background-position:center; background-width:100%;background-height:800px; padding:40px 0px; margin-top:110px; margin-bottom:10px!important;">
+                            <div class="container clearfix">
+                                <div class="row">
+        
+                                    <div class="col-md-12" >
+                                        <div class="heading-block bottommargin-sm dark"">
+                                            <h3>Traffic Violation Fine Receipt</h3>
+                                        </div>
+        
+                                         </div>
+        <!--
+                                    <div class="col-md-3">
+                                        <a href="#" class="button button-3d button-dark button-large btn-block center" style="margin-top: 30px;">Check our Services</a>
+                                    </div>
+        -->
+                                </div>
+                            </div>
+                        </div>
+        
+                
+                
+                </div>
+    <div class="receipt" style="margin-top:50px;">
+        <h2>Traffic Violation Fine Receipt</h2>
+        <hr>
+        <div class="details">
+            <p><strong>Vehicle No:</strong> {{ trp_fine.vRno }}</p>
+            <p><strong>Violation:</strong> {{ trp_fine.trafficviolation }}</p>
+            <p><strong>Fine Amount:</strong> ₹{{ trp_fine.collected_fine }}</p>
+            <p><strong>Police ID:</strong> {{ trp_fine.police_id }}</p>
+            <p><strong>Officer:</strong> {{ trp_fine.police_name }}</p>
+            <p><strong>Date:</strong> {{ trp_fine.collect_date }}</p>
+            <p><strong>Time:</strong> {{ trp_fine.collect_time }}</p>
+            
+        </div>
+        <hr>
+        <button class="btn-print" onclick="window.print()">Print Receipt</button>
+    </div>
+
+</body>
+</html>

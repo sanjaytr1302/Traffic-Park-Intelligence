@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+	{% block external_css %}
+    {% include 'extern_files.html' %}
+    {% endblock %}
+</head>
+<body class="stretched">
+
+
+<div id="wrapper" class="clearfix">
+
+	{% block home_navbar %}
+    {% include 'user_navbar.html' %}
+    {% endblock %}
+		
+		
+			    
+	{% for msg in messages %}
+	<script>alert('{{ msg|safe }}');</script>
+  {% endfor %}		
+		
+<!-- Navigation bar Ends here -->
+<div class="row">
+<section id="content" style="">
+
+			
+
+				<div class="section parallax  bottommargin-lg" style="margin:0px; background-size: cover;
+    background-position: 50% -42.9px; background-image: url('https://c4.wallpaperflare.com/wallpaper/922/533/179/street-lamp-night-darkness-wallpaper-preview.jpg'); padding: 0px;  margin:0px!important;" data-stellar-background-ratio="0.3">
+
+					<div class="container clearfix">
+
+						<div class="col-sm-12">
+							<div class="dark">
+							
+							
+	
+<h1 class="well text-center">Hello {{ user_data.first_name }} {{ user_data.last_name }},  View | Update Profile</h1>
+
+<div class="col-sm-6 col-sm-offset-3">
+							<div class="dark"  style="background-color:black; box-shadow: 5px 5px 50px rgba(255, 255, 255, 0.949); padding: 30px; color:black!important">
+
+<form  class="form-horizontal"  action="userprofile" method="post" enctype="multipart/form-data" name="form1">
+	{% csrf_token %}
+	<input  class="hidden" type="text" required value="{{ user_data.id }}" name="uid" id="uid" class="form-control  not-dark" /> <br/> 
+							
+								<div class="form-group">
+									<input type="text" value="{{ user_data.first_name }}" required  placeholder="First Name *" name="fname" id="fname" class="form-control not-dark" /> 
+								</div>
+								<div class="form-group">
+									<input     type="text" required value="{{ user_data.last_name }}"   placeholder="Last Name *" name="lname" id="lname" class="form-control  not-dark" /> 
+								</div>
+								
+							
+								<div class="form-group">
+									<textarea required placeholder="Address *" name="address" id="address" class="form-control  not-dark">{{ user_data.address }}</textarea>
+								</div>
+								<div class="form-group">
+									<select required name="city" class="form-control  not-dark">
+										<option value="{{ user_data.city }}" >{{ user_data.city }}</option>
+										<option value="">--Select--</option>
+										<option value="Bagalkot">Bagalkot</option>
+<option value="Ballari">Ballari</option>
+<option value="Belagavi">Belagavi</option>
+<option value="Bengaluru Rural">Bengaluru Rural</option>
+<option value="Bengaluru Urban">Bengaluru Urban</option>
+<option value="Bidar">Bidar</option>
+<option value="Chamarajanagar">Chamarajanagar</option>
+<option value="Chikkaballapur">Chikkaballapur</option>
+<option value="Chikkamagaluru">Chikkamagaluru</option>
+<option value="Chitradurga">Chitradurga</option>
+<option value="Dakshina Kannada">Dakshina Kannada</option>
+<option value="Davanagere">Davanagere</option>
+<option value="Dharwad">Dharwad</option>
+<option value="Gadag">Gadag</option>
+<option value="Hassan">Hassan</option>
+<option value="Haveri">Haveri</option>
+<option value="Kalaburagi">Kalaburagi</option>
+<option value="Kodagu">Kodagu</option>
+<option value="Kolar">Kolar</option>
+<option value="Koppal">Koppal</option>
+<option value="Mandya">Mandya</option>
+<option value="Mysuru">Mysuru</option>
+<option value="Raichur">Raichur</option>
+<option value="Ramanagara">Ramanagara</option>
+<option value="Shivamogga">Shivamogga</option>
+<option value="Tumakuru">Tumakuru</option>
+<option value="Udupi">Udupi</option>
+<option value="Uttara Kannada">Uttara Kannada</option>
+<option value="Vijayapura">Vijayapura</option>
+<option value="Yadgir">Yadgir</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<input     type="text" required   value="{{ user_data.state }}"  placeholder="State *" name="state" id="state" class="form-control  not-dark"/>
+								</div>
+								<div class="form-group">
+									<input     type="text" required   value="{{ user_data.pincode }}"   placeholder="Pincode *" name="pincode" id="pincode" class="form-control  not-dark"/>
+								</div>
+								<div class="form-group">
+									<input     type="text" required  value="{{ user_data.contact_no }}"  placeholder="Phone number *" pattern="[789][0-9]{9}" maxlength="10" name="contactno" id="contactno" class="form-control  not-dark" />
+								</div>
+								<div class="form-group">
+									<input  
+  type="email" 
+  required 
+  placeholder="Email *" 
+  name="emailid"  
+  id="emailid" 
+  class="form-control not-dark"
+  pattern="[a-zA-Z0-9._%+-]+@gmail\.com" 
+  title="Please enter a valid Gmail address (e.g., example@gmail.com)"
+/> 
+								</div>
+								
+								<div class="form-group">
+
+								<div class="buttons-box clearfix">
+									<input    class=" btn full btn-primary btn-block" type="submit" value="Update Profile"  >
+								</div>
+						
+								<!-- .buttons-box -->
+		</form>
+
+						
+
+	
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+	
+
+		</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+		
+	</div><!-- #wrapper end -->
+</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script type="text/javascript" src="js/functions.js"></script>
+
+</body>
+</html>
+</div>
+
+
+</body>
+</html>

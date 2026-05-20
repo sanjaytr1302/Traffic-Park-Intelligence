@@ -1,0 +1,181 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	{% block external_css %}
+    {% include 'extern_files.html' %}
+    {% endblock %}
+	<style>
+		.pageheader{
+			padding:60px 10px;
+			margin:0px;
+		}
+		.bg-primary {
+    background-color: #337ab7b3!important;
+		}
+		.well{
+			color:white!important;
+			background-color: rgba(59, 56, 53, 0.64)!important;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+		
+		.well input{
+			color:white!important
+		}
+		</style>
+
+</head>
+<body class="stretched">
+
+<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- Header
+		============================================= -->
+		<header id="header">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<div id="logo">
+						<a href="" class="standard-logo" data-dark-logo="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png"><img src="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png" alt="Canvas Logo"></a>
+						<a href="" class="retina-logo" data-dark-logo="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png"><img src="https://png.pngtree.com/png-clipart/20230529/ourmid/pngtree-traffic-lights-png-image_7113828.png" alt="Canvas Logo"></a>
+					</div><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu" class="sub-title">
+						<ul>
+						
+							<li class=""><a href="{% url 'rto_home' %}"><div>Register Vehicles</div></a></li>
+							<li class="current"><a href="{% url 'rto_view_reg_veh' %}"><div>View Registerd Vehicles</div></a></li>
+							<li class=""><a href="{% url 'logout' %}"><div>Logout</div></a></li>
+						
+						</ul>
+
+					</nav>
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+		
+			
+		<section id="content"style="    min-height: 800px; margin: 0px; background-size: cover; background-position:fixed; background-image: url('https://thumbs.dreamstime.com/b/cars-queue-gas-station-sunset-row-vehicles-refuel-filling-evening-twilight-scene-urban-commute-automotive-industry-367124912.jpg'); padding: 0px;" >
+		
+					<div class="container-fluid clearfix">
+						<div class="row">
+							<div class="col-md-12 " style="padding:0px;"  align="center">
+								<h2  class="bg-primary pageheader">Welcome,  RTO Admin</h2>
+								</div>
+								</div>
+								</div>
+
+		<!-- Content
+		============================================= -->
+					<div class="container clearfix">
+						<div class="row">
+							<div class="col-md-12 dark" >
+							
+
+
+							<div class="well">
+
+								<div class="dark" id="regvehicle">
+									<h2 align="center" class="">Registered Vehicles</h2><br/>
+									</div>
+		
+								
+								<div class="table-responsive">          
+									<table class="table table-striped">
+										<thead>
+										<tr>
+											<th>Name</th>
+											<th>DOB</th>
+											<th>Aadharcard</th>
+											<th>Email</th>
+											<th>Address</th>
+											<th>City</th>
+											<th>State</th>
+											<th>Vehicle number</th>
+											<th>Engine number</th>
+											<th>Vehicle Type</th>
+										</tr>
+										</thead>
+										<tbody>
+										{% for i in view_rto_reg %}
+										<tr>
+											<td>{{ i.name }}</td>
+											<td>{{ i.dob }}</td>
+											<td>{{ i.aadhar_card_no }}</td>
+											<td>{{ i.email }}</td>
+											<td>{{ i.r_address }}</td>
+											<td>{{ i.r_city }}</td>
+											<td>{{ i.r_state }}</td>
+											<td>{{ i.vehicle_num }}</td>
+											<td>{{ i.engine_num }}</td>
+											<td>{{ i.vehicle_type }}</td>
+											
+										</tr>
+										{% endfor %}
+										</tbody>
+									</table>
+								</table>
+
+							</div>
+
+						</div>
+
+
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+
+				
+
+			</div>
+
+		</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+		<footer id="footer" class="dark">
+</footer>
+		
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script type="text/javascript" src="js/functions.js"></script>
+
+</body>
+</html>

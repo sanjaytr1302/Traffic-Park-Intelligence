@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	{% block external_css %}
+    {% include 'extern_files.html' %}
+    {% endblock %}
+<style>
+	.parallax{
+		margin-top:0px;
+		margin-bottom:0px;
+		
+		
+	}
+	body{
+		background-color:black;
+	}
+	
+</style>
+</head>
+<body class="stretched">
+
+<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		{% block home_navbar %}
+		{% include 'home_navbar.html' %}
+		{% endblock %}
+
+
+
+<!-- Navigation bar Starts here -->		
+
+<!-- Navigation bar Ends here -->
+<div class="row">
+<section id="content" style="margin:0px;">
+
+		    
+	{% for msg in messages %}
+	<script>alert('{{ msg|safe }}');</script>
+  {% endfor %}	
+
+
+				<div class="section parallax " style="margin:0px; background-size: 100%;
+    background-position: 50% -42.9px; background-image: url('https://c1.wallpaperflare.com/preview/8/833/119/highway-road-lights-lamp-posts.jpg'); padding: 0px 0px;" data-stellar-background-ratio="0.3">
+
+				
+						<div class="col-sm-12">
+							<div class="dark">
+<h1 class="well text-center" >Traffic Management | Register as a User</h1>
+</div>
+	
+<div class="col-md-offset-3 col-md-6 tb-pad-10 " >
+							<form  class="form-horizontal dark"  action="userregister" method="post" enctype="multipart/form-data" name="form1">
+								{% csrf_token %}<h3 class="title dark" align="center">Don&#39;t have an Account ? Register Now.</h3>
+								<div class="form-group">
+									<input     type="text"  required  placeholder="First Name *" name="fname" id="fname" class="form-control" /> <br/>
+								</div>
+								<div class="form-group">
+									<input     type="text" required  placeholder="Last Name *" name="lname" id="lname" class="form-control bg-white" /> <br/> 
+								</div>
+								<div class="form-group">
+									<input    type="date" required placeholder="D.O.B *" name="bdate" id="bdate" class="form-control bg-white" /> <br/> 
+								</div>
+								<!--
+								
+									<label>Male <input required   type="radio"  value="Male" name="gender"></label>
+								
+									<label>Female<input required   type="radio"  value="Female" name="gender"></label>
+								-->
+								<div class="form-group">
+									<textarea required placeholder="Address *" name="address" id="address" class="form-control bg-white"></textarea>
+								</div>
+								<div class="form-group">
+									<select required name="city" class="form-control bg-white">
+										<option value="">--Select--</option>
+										<option value="Mysore">Mysore</option>
+										<option value="Bangalore">Bangalore</option>
+										<option value="Shivmogga">Shivmogga</option>
+										<option value="Manglore">Manglore</option>
+										<option value="Udupi">Udupi</option>
+										<option value="Chitradurga">Chitradurga</option>
+										<option value="Hassan">Hassan</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<input     type="text" required  placeholder="State *" vlue="Karnataka" name="state" id="state" class="form-control bg-white"/>
+								</div>
+								<div class="form-group">
+									<input     type="text" required  placeholder="Pincode *" name="pincode" id="pincode" class="form-control bg-white"/>
+								</div>
+								<div class="form-group">
+									<input     type="text" required placeholder="Phone number *" pattern="[789][0-9]{9}" maxlength="10" name="contactno" id="contactno" class="form-control bg-white" /> <br/>
+								</div>
+								<div class="form-group">
+									<input    type="email" required placeholder="Email *" name="emailid"  id="emailid" class="form-control bg-white" /> <br/>
+								</div>
+								<div class="form-group">								
+									<input    type="file"   name="image" id="image"/> <br/>
+								</div>
+								<div class="form-group">
+									<input     type="text" required placeholder="Username *" name="loginname"  id="loginname"  class="form-control bg-white"/>
+								</div>
+								<div class="form-group">
+									<div class="row" role="form">
+								
+									<div class="col-md-6">
+										<div style="position: relative;"> 
+											<input type="password" class="form-control" pattern="(?=.*[A-
+											Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}"  title="Password must contain at least 1 uppercase letter, 1 number, and 1 special character" placeholder="Enter Password" id="pass1"  name="password"  required> <i class="fa-solid fa-eye" id="togglePassword" onclick="togglePassVisibility()"style="position: absolute; top: 50%; right: 10px; transform: 
+											translateY(-50%); cursor: pointer; color: #888;"></i> </div> <script> function togglePassVisibility() { 
+											const password = document.getElementById("pass1"); const icon = document.getElementById("togglePassword"); if (password.type === "password") { password.type = "text"; icon.classList.remove("fa-eye"); icon.classList.add("fa-eye-slash"); 
+											} else { 
+											password.type = "password"; icon.classList.remove("fa-eye-slash"); icon.classList.add("fa-eye"); 
+											} 
+											} 
+											</script> 
+											
+									</div>
+									
+								</div>
+							</div>
+								
+								<div class="form-group">
+								<div class="clearfix"></div>
+								<div class="buttons-box clearfix">
+									<input    class="col-sm-offset-5 btn full btn-primary" type="submit" value="Register Now"  >
+								</div>
+								<hr/>
+									
+								<!-- .buttons-box -->
+						</form>
+						
+						</div>
+
+					</div>
+
+				</div>
+
+
+				
+			</div>
+
+		</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+		
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script type="text/javascript" src="js/functions.js"></script>
+
+</body>
+</html>
+</div>
+
+
+</body>
+</html>

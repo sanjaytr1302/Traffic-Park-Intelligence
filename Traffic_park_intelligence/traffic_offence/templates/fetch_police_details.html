@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    {% block external_css %}
+    {% include 'extern_files.html' %}
+    {% endblock %}
+
+<style>
+		#footer{
+			height:30px;
+			
+		}
+</style>
+</head>
+<body class="stretched">
+
+<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		
+		{% block home_navbar %}
+		{% include 'home_navbar.html' %}
+		{% endblock %}
+		{% if messages %}			    
+	{% for msg in messages %}
+	<script>alert('{{ msg|safe }}');</script>
+  {% endfor %}	
+  {% endif  %}
+		
+		
+			<section id="content">
+
+			
+				<div class="container clearfix">
+<!-- Navigation bar Starts here -->		
+
+<!-- Navigation bar Ends here -->
+
+		<h1 class="well text-center">Smart Traffic offence Parking & management <br/> Traffic Police Station Details </h1>
+
+	 
+
+					<div class="panel panel-primary">
+							<div class="panel-heading"><h3 class="panel-title">Find No Parking Vehicle Details</h3></div>
+							<div class="panel-body">
+							
+							   
+							   <table class="table">
+							   <tr>
+								  <th>Police Name</th>
+								  <th>Station Name</th>
+								  <th>Station Address</th>
+								  <th>Contact Number</th>						  
+							  </tr>
+							 
+
+							 <tr>
+								<td>{{ tp_details.tigerPolName }}</td>
+								<td>{{ tp_details.tigerStatName }}</td>
+								<td>{{ tp_details.stat_address }}</td>
+								<td>{{ tp_details.contact_no }}</td>
+								
+							</tr>
+							</table>
+							</div>
+						</div>
+	   	 
+	 
+	  </form>
+	</div>
+	</div>
+	</section>
+
+
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script type="text/javascript" src="js/functions.js"></script>
+<!-- GOOGLE map -->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="js/mapmarker.jquery.js"></script>
+<script type="text/javascript" src="js/mapmarker_func.jquery.js"></script>
+
+</body>
+</html>

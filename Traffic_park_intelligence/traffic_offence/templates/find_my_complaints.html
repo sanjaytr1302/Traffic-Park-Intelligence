@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    {% block external_css %}
+    {% include 'extern_files.html' %}
+    {% endblock %}
+
+<style>
+		#footer{
+			height:30px;
+			
+		}
+</style>
+</head>
+<body class="stretched">
+
+<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		{% block home_navbar %}
+		{% include 'home_navbar.html' %}
+		{% endblock %}
+		{% if messages %}			    
+	{% for msg in messages %}
+	<script>alert('{{ msg|safe }}');</script>
+  {% endfor %}	
+  {% endif  %}
+		
+		
+		<section id="content">
+
+			<div class="content-wrap" >
+
+				<div class="section header-stick"  style="background-image:url('https://c4.wallpaperflare.com/wallpaper/922/533/179/street-lamp-night-darkness-wallpaper-preview.jpg');background-repeat:no-repeat;background-size:cover;color:white; background-position:center; background-size:cover; padding:40px 0px; margin-top:110px; margin-bottom:10px!important;">
+					<div class="container clearfix">
+						<div class="row">
+
+							<div class="col-md-12" >
+								<div class="heading-block bottommargin-sm"">
+								<h1 style="color:white">Find My Complaints</h1>
+								</div>
+
+								</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="container clearfix">
+
+					<div class="row">
+					<div class="col-sm-offset-2 col-md-8 bottommargin">
+						
+						<div class="tab-content">
+						  <div id="home" class="tab-pane fade in active">
+							<div class="panel panel-primary">
+							<div class="panel-heading"><h3 class="panel-title">Find Traffic Violation Complaints</h3></div>
+							<div class="panel-body">
+							<form method="post" action="{% url 'find_my_complaints' %}"  name="form2">
+								{% csrf_token %}
+								<div class="form-group" style="padding-bottom:20px;">
+										<label  class="col-sm-5" style="padding-top:10px;">Enter Vehicle No</label>
+										<div class="col-sm-5"><input type="text" name="Vehicle_num" class="form-control" placeholder="Enter Vehicle No"  />
+										</div>
+										<div class="col-sm-2">
+											<input type="submit"  class="btn btn-primary form-control" name="submit1"/>
+										</div>
+								</div>
+							   </form>
+							   
+							   <table class="table">
+							   <tr>
+								  <th>Vehicle No</th>
+								  <th>Violation Date</th>
+								  <th>Violation Place</th>
+								  <th>Violation type</th>
+								  <th>Violation Pic</th>
+								  
+								  <th>Fine</th>
+								  <th>Fine Status</th>
+								  
+								  
+							  </tr>
+							 
+					{% for i in check_traffic_offence %}
+							 <tr>
+								<td>{{ i.vehicle_regno }}</td>
+								<td>{{ i.violation_date }}</td>
+								<td>{{ i.violation_place }}</td>
+								<td>{{ i.violation_type }}</td>
+								<td><a href="{{ i.violation_pic.url }}" target="_blank"><img src="{{ i.violation_pic.url }}" alt="image not attached" width="100%" height="200">Click here to view</a></td>
+								
+								<td>{{ i.fine }}</td>
+								<td>{{ i.fine_status }}</td>
+								
+							</tr>
+							{% endfor %}
+							</table>
+							</div>
+						</div>
+
+						  </div>
+						  <div id="menu1" class="tab-pane fade">
+							<div class="panel panel-primary">
+							<div class="panel-heading"><h3 class="panel-title">Find Found Vehicles</h3></div>
+							<div class="panel-body" align="center">
+							<form method="post" action="" class="form-horizontal" name="form2" autofill="off">
+									<div class="form-group">
+										<label class="col-sm-5">Enter Vehicle No</label><div class="col-sm-5"><input type="text" name="Vehicle_num" placeholder="Enter Vehicle No" /></div>
+									</div>
+									<div class="form-group">
+										<label  class="col-sm-5">Enter Engine No</label><div class="col-sm-5"><input type="text" name="eng_num" placeholder="Enter Engine No" /></div>
+								
+								<div class="col-sm-2">
+									<input type="submit"  class="btn btn-primary btn-block" name="search"/>
+									</div>
+							   </form>
+							   
+							   <table class="table">
+							   <tr>
+								  <th>Vehicle Name</th>
+								  <th>Vehicle Num</th>
+								  <th>Engine Num</th>
+								  <th>Vehicle FoundCity</th>
+								 
+								  <th>Vehicle Pic</th>
+								  
+							  </tr>
+							 
+						<?php 
+							  if(isset($_POST['search']))
+							  {
+								$vehicle=$_POST['Vehicle_num'];
+								$eng_num=$_POST['eng_num'];
+								
+								if($vehicle!="" and $eng_num!="")
+								{
+								 $sql12="select * from foundvehicle where vehicle_num='$vehicle' and engine_num='$eng_num'";
+								 $res=mysqli_query($connection,$sql12);
+							 
+							 while($s=mysqli_fetch_assoc($res))
+							 {
+								 $vehicle_name=$s['vehicle_name'];
+								 $vehicle_num=$s['vehicle_num'];
+								 $engine_num=$s['engine_num'];
+								 $vehicle_foundcity=$s['vehicle_foundcity'];
+								 $vehicle_pic=$s['vehicle_pic'];
+								 
+							 ?>
+							 <tr>
+								<td><?php echo $vehicle_name; ?></td>
+								<td><?php echo $vehicle_num; ?></td>
+								<td><?php echo $engine_num; ?></td>
+								<td><?php echo $vehicle_foundcity; ?></td>
+								<td><img src="upload/<?php echo $vehicle_pic; ?>" width="100%" height="150px;"/></td>
+							
+							</tr>
+							  <?php }}}?>
+							</table>
+							</div>
+						</div>
+					</div>
+						  </div>
+						  
+						
+						
+						
+
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+		<footer id="footer" class="dark">
+		
+		</footer><!-- #footer end -->
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script type="text/javascript" src="js/functions.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+				
+			

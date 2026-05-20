@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	{% block external_css %}
+    {% include 'extern_files.html' %}
+    {% endblock %}
+</head>
+<body class="stretched">
+
+<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		{% block home_navbar %}
+		{% include 'admin_navbar.html' %}
+		{% endblock %}
+		
+		
+			<section id="content">
+
+			<div class="content-wrap" style="padding-top:60px; padding-bottom:0px;" >
+
+				<div class="section header-stick"  style="background-image:url('https://c4.wallpaperflare.com/wallpaper/922/533/179/street-lamp-night-darkness-wallpaper-preview.jpg');background-repeat:no-repeat;background-size:100% 800px; background-position:center; background-width:100%;background-height:800px; padding:40px 0px; margin-top:110px; margin-bottom:10px!important;">
+					<div class="container clearfix">
+						<div class="row">
+
+							<div class="col-md-12" >
+								<div class="heading-block bottommargin-sm dark">
+									<h3>WEAR HELMET, STAY SAFE!  <br/> THAT’S THE ROAD SAFETY MESSAGE THIS GIANT HELMET HOPES TO PROPAGATE</h3>
+								</div>
+
+								<p class="nobottommargin dark">Wearing of Protective Helmet - Every person driving or riding otherwise than in a side car, on a motor cycle of any class or description, shall, while in a public place, wear protective Helmet conforming to the standards of Bureau of Indian Standards:</p>
+							</div>
+<!--
+							<div class="col-md-3">
+								<a href="#" class="button button-3d button-dark button-large btn-block center" style="margin-top: 30px;">Check our Services</a>
+							</div>
+-->
+						</div>
+					</div>
+				</div>
+				</div>
+				<div class="container clearfix">
+<!-- Navigation bar Starts here -->		
+
+<!-- Navigation bar Ends here -->
+
+	
+
+
+	<h1 class="well text-center">Traffic Offence Complaints </h1>
+	<table class="table table-hover table-bordered" width="100%" >
+	<tr>
+		<th>Vehicle No</th>
+		<th>Violation Date and Time</th>
+	
+		<th>Violation Type</th>
+			<th>Violation Place</th>
+				<th>Description</th>
+		
+		<th>Violation Pic</th>
+	<!--	<th>Violation Video</th>-->
+		
+		<th colspan="2" class="alig">Action</th>
+	</tr>
+	
+{% for traffic_vio in violator_complain %}
+<tr>
+	<td>{{ traffic_vio.vehicle_regno }}</td>
+	<td>{{ traffic_vio.violation_date }} | {{ traffic_vio.violation_time }}</td>
+	<td>{{ traffic_vio.violation_type }}</td>
+	<td>{{ traffic_vio.violation_place }}</td>
+	<td>{{ traffic_vio.description }}</td>
+	
+	
+	<td><a href="{{ traffic_vio.pic_traffic_violator.url }}" target="_blank"><img src="{{ traffic_vio.pic_traffic_violator.url }}" alt="image not attached" width="200" height="200"></a></td>
+	<td>
+        <form class="form-horizontal" enctype="multipart/form-data"  action="track_numberplate" method="post"  name="login" >
+            {% csrf_token %}
+                <input name="v_img" placeholder="Enter Vehicle Registration Name" value="{{ traffic_vio.pic_traffic_violator.url }}" type="text" id="v_img" class="form-control not-dark hidden" >
+            <input type="text" value="{{ traffic_vio.id }}" class="hidden" name="traffic_offence_comp_id" />
+				<input type="submit" value="Find Vehicle Details" class="btn btn-success" />
+        </form>
+    </td>
+    <!--<td>
+	<video  width="300" height="200" controls>
+         <source src="upload/<?php echo $pic;  ?>" type="video/mp4" />
+       
+         Your browser does not support the video element.
+      </video>
+</td>
+
+-->
+
+	<td><a href="reject_comp/{{ traffic_vio.id }}" class="btn btn-danger">Reject</a></td>
+
+	
+	
+</tr>
+{% endfor %}
+</table>
+</div>
+</div>
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script type="text/javascript" src="js/functions.js"></script>
+
+</body>
+</html>

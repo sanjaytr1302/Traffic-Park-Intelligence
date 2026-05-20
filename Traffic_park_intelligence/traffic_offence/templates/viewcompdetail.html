@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	{% block external_css %}
+    {% include 'extern_files.html' %}
+    {% endblock %}
+</head>
+<body class="stretched">
+
+<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		
+		{% block home_navbar %}
+		{% include 'admin_navbar.html' %}
+		{% endblock %}
+		
+		
+			<section id="content">
+
+			<div class="content-wrap" style="padding-top:60px; padding-bottom:0px;" >
+
+				<div class="section header-stick"  style="background-image:url('https://c4.wallpaperflare.com/wallpaper/922/533/179/street-lamp-night-darkness-wallpaper-preview.jpg');background-repeat:no-repeat;background-size:100% 800px; background-position:center; background-width:100%;background-height:800px; padding:40px 0px; margin-top:110px; margin-bottom:10px!important;">
+					<div class="container clearfix">
+						<div class="row">
+
+							<div class="col-md-12" >
+								<div class="heading-block bottommargin-sm dark"">
+									<h3>WEAR HELMET, STAY SAFE!  <br/> THAT’S THE ROAD SAFETY MESSAGE THIS GIANT HELMET HOPES TO PROPAGATE</h3>
+								</div>
+
+								<p class="nobottommargin dark"">Wearing of Protective Helmet - Every person driving or riding otherwise than in a side car, on a motor cycle of any class or description, shall, while in a public place, wear protective Helmet conforming to the standards of Bureau of Indian Standards:</p>
+							</div>
+<!--
+							<div class="col-md-3">
+								<a href="#" class="button button-3d button-dark button-large btn-block center" style="margin-top: 30px;">Check our Services</a>
+							</div>
+-->
+						</div>
+					</div>
+				</div>
+				</div>
+				<div class="container clearfix">
+<!-- Navigation bar Starts here -->		
+
+<!-- Navigation bar Ends here -->
+
+	
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+	
+	
+			<table class="table table-hover table-bordered" width="100%" >
+					<tr class="active">
+						<th>Vehicle Owner</th>
+						<th>DOB</th>
+						<th>Aadhar Card</th>
+						<th>Address</th>
+						<th>City</th>
+						<th>State</th>
+						<th>vehicle num</th>
+						<th>Engine num</th>
+						<th>vehicle type</th>
+					
+					</tr>
+
+	
+	
+					<td>{{ search_owner.name }}</td>
+					<td>{{ search_owner.dob }}</td>
+					<td>{{ search_owner.aadhar_card_no }}</td>
+					<td>{{ search_owner.r_address }}</td>
+					<td>{{ search_owner.r_city }}</td>
+					<td>{{ search_owner.r_state }}</td>
+					<td>{{ search_owner.vehicle_num }}</td>
+					<td>{{ search_owner.engine_num }}</td>
+					<td>{{ search_owner.vehicle_type }}</td>
+					
+			
+					
+					
+						<table>
+							<form method="post" action="{% url 'RegisterComp' search_traffic_offencecomp.id %}">
+								{% csrf_token %}
+						
+								<input type="text" hidden  name="vownername" value="{{ search_owner.name }}"  />
+								<input type="text" hidden  name="vaadhar" value="{{ search_owner.aadhar_card_no }}"   />
+								<input type="text" hidden  name="vRaddress" value="{{ search_owner.r_address }}"   />
+							
+								<input type="text" hidden  name="vRcity" value="{{ search_owner.r_city }}"  />
+								<input type="text" hidden  name="vRstate" value="{{ search_owner.r_state }}"   />
+								<input type="text" hidden  name="Engine_num" value="{{ search_owner.engine_num }}"  />
+								
+					
+								<!-- CATEGORY DROPDOWN -->
+								<label for="category">Category:</label>
+								<select id="category" name="category">
+									<option value="">-- Select Category --</option>
+									{% for offence in offences %}
+										<option value="{{ offence.category }}">{{ offence.category }}</option>
+									{% endfor %}
+								</select>
+						
+								<br><br>
+						
+								<!-- SUBCATEGORY DROPDOWN -->
+								<label for="sub_category">Subcategory:</label>
+								<select id="sub_category" name="sub_category">
+									<option value="">-- Select Subcategory --</option>
+								</select>
+						
+								<br><br>
+						
+								<!-- FINE AMOUNT -->
+								<label for="fine">Fine Amount:</label>
+								<input type="text" id="fine" name="fine" readonly>
+						
+								<td><input type="text" name="compid" class="" value="{{search_traffic_offencecomp.id}}" /> </td>
+		
+								<button type="submit" class="btn btn-danger">Submit</button>
+							</form>
+						
+							<script>
+								$(document).ready(function() {
+									// When category is changed, load subcategories
+									$("#category").change(function() {
+										var category = $(this).val();
+						
+										$.ajax({
+											url: "{% url 'load_subcategories' %}",
+											data: {"category": category},
+											dataType: "json",
+											success: function(data) {
+												var subcategoryDropdown = $("#sub_category");
+												subcategoryDropdown.empty();
+												subcategoryDropdown.append('<option value="">-- Select Subcategory --</option>');
+												
+												$.each(data.subcategories, function(index, subcategory) {
+													subcategoryDropdown.append('<option value="' + subcategory.sub_category + '">' + subcategory.sub_category + '</option>');
+												});
+											}
+										});
+									});
+						
+									// When subcategory is changed, load fine amount
+									$("#sub_category").change(function() {
+										var sub_category = $(this).val();
+						
+										$.ajax({
+											url: "{% url 'load_fine' %}",
+											data: {"sub_category": sub_category},
+											dataType: "json",
+											success: function(data) {
+												$("#fine").val(data.fine);
+											}
+										});
+									});
+								});
+							</script>
+			</tr>
+	
+			<!-- <select id="pricecat" class="pricecat" required name="pricecateg" style="width: 178px;
+        height: 26px;">
+      <option value="">Select</option>
+      
+        </select> 
+		-->
+       
+ </tr></table>
+ <!--
+ <script type="text/javascript">
+                                    $(document).ready(function()
+                            {
+
+                            $(".subcat").change(function()
+                            {
+                            var id=$(this).val();
+                            var dataString = 'id='+ id;
+//alert('hi');
+                            $.ajax
+                            ({
+                            type: "POST",
+                            url: "pricedb.php",
+                            data: dataString,
+                            cache: false,
+                            success: function(html)
+                            {
+                            $(".pricecat").html(html);
+                            } 
+                            });
+
+                            }); 
+ 
+
+                            });
+
+
+
+
+</script>
+ 
+
+ -->
+	
+	
+	
+	
+		<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script type="text/javascript" src="js/functions.js"></script>
+
+</body>
+</html>
+	
+	
+	

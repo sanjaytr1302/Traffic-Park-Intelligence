@@ -1,0 +1,247 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />	{% block external_css %}
+    {% include 'extern_files.html' %}
+    {% endblock %}
+<style>
+	.parallax{
+		margin-top:0px;
+		margin-bottom:0px;
+		
+		
+	}
+	body{
+		background-color:black;
+	}
+	
+</style>
+</head>
+<body class="stretched">
+
+<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		{% block home_navbar %}
+		{% include 'home_navbar.html' %}
+		{% endblock %}
+
+
+
+<!-- Navigation bar Starts here -->		
+
+<!-- Navigation bar Ends here -->
+<div class="row">
+<section id="content" style="margin:0px;">
+
+		    
+	{% for msg in messages %}
+	<script>alert('{{ msg|safe }}');</script>
+  {% endfor %}	
+
+
+				<div class="section parallax " style="margin:0px; background-size: 100%;
+    background-position: 50% -42.9px; background-image: url('https://c1.wallpaperflare.com/preview/8/833/119/highway-road-lights-lamp-posts.jpg'); padding: 0px 0px;" data-stellar-background-ratio="0.3">
+
+				
+						<div class="col-sm-12">
+							<div class="dark">
+<h1 class="well text-center" >Traffic Management | Register as a User</h1>
+</div>
+	
+<div class="col-md-offset-3 col-md-6 tb-pad-10 " >
+							<form  class="form-horizontal dark"  action="userregister" method="post" enctype="multipart/form-data" name="form1">
+								{% csrf_token %}<h3 class="title dark" align="center">Don&#39;t have an Account ? Register Now.</h3>
+								<div class="form-group">
+									<input  type="text" required placeholder="First Name *" name="fname"  id="fname" class="form-control" pattern="[A-Z][a-zA-Z]*" title="First name must start with a capital letter and contain only letters"/> 
+<br/>
+
+								</div>
+								<div class="form-group">
+									<input     type="text" required  placeholder="Last Name *" name="lname" id="lname" class="form-control bg-white" /> <br/> 
+								</div>
+								<div class="form-group">
+									<input 
+  type="date" 
+  required 
+  placeholder="D.O.B *" 
+  name="bdate" 
+  id="bdate" 
+  class="form-control bg-white" 
+  min="{{ today_date }}" 
+/>
+
+
+
+
+								</div>
+								<!--
+								
+									<label>Male <input required   type="radio"  value="Male" name="gender"></label>
+								
+									<label>Female<input required   type="radio"  value="Female" name="gender"></label>
+								-->
+								<div class="form-group">
+									<textarea required placeholder="Address *" name="address" id="address" class="form-control bg-white"></textarea>
+								</div>
+								<div class="form-group">
+									<select required name="city" class="form-control bg-white">
+										<option value="">--Select--</option>
+										<option value="Bagalkot">Bagalkot</option>
+<option value="Ballari">Ballari</option>
+<option value="Belagavi">Belagavi</option>
+<option value="Bengaluru Rural">Bengaluru Rural</option>
+<option value="Bengaluru Urban">Bengaluru Urban</option>
+<option value="Bidar">Bidar</option>
+<option value="Chamarajanagar">Chamarajanagar</option>
+<option value="Chikkaballapur">Chikkaballapur</option>
+<option value="Chikkamagaluru">Chikkamagaluru</option>
+<option value="Chitradurga">Chitradurga</option>
+<option value="Dakshina Kannada">Dakshina Kannada</option>
+<option value="Davanagere">Davanagere</option>
+<option value="Dharwad">Dharwad</option>
+<option value="Gadag">Gadag</option>
+<option value="Hassan">Hassan</option>
+<option value="Haveri">Haveri</option>
+<option value="Kalaburagi">Kalaburagi</option>
+<option value="Kodagu">Kodagu</option>
+<option value="Kolar">Kolar</option>
+<option value="Koppal">Koppal</option>
+<option value="Mandya">Mandya</option>
+<option value="Mysuru">Mysuru</option>
+<option value="Raichur">Raichur</option>
+<option value="Ramanagara">Ramanagara</option>
+<option value="Shivamogga">Shivamogga</option>
+<option value="Tumakuru">Tumakuru</option>
+<option value="Udupi">Udupi</option>
+<option value="Uttara Kannada">Uttara Kannada</option>
+<option value="Vijayapura">Vijayapura</option>
+<option value="Yadgir">Yadgir</option>
+
+
+									</select>
+								</div>
+								<div class="form-group">
+									<input     type="text" required  placeholder="State *" vlue="Karnataka" name="state" id="state" class="form-control bg-white"/>
+								</div>
+								<div class="form-group">
+								<input  
+  type="text" 
+  required  
+  placeholder="Pincode *" 
+  name="pincode" 
+  id="pincode" 
+  class="form-control bg-white" 
+  pattern="^[0-9]{6}$" 
+  title="Pincode must be exactly 6 digits (numbers only)" 
+/>
+
+								</div>
+								<div class="form-group">
+									<input   type="text" required placeholder="Phone number *" pattern="[6-9][0-9]{9}" title="Enter a valid 10-digit phone number
+									starting with 6, 7, 8, or 9" maxlength="10" name="contactno" id="contactno" class="form-control bg-white" /> <br/>
+								</div>
+								<div class="form-group">
+<input  
+  type="email" 
+  required 
+  placeholder="Email *" 
+  name="emailid"  
+  id="emailid" 
+  class="form-control bg-white"
+  pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$" 
+  title="Please enter a valid Gmail address with a variable before '@', e.g., example@gmail.com" 
+/>
+
+
+								</div>
+								<div class="form-group">								
+									<input    type="file"   name="image" id="image"/> <br/>
+								</div>
+								<div class="form-group">
+									<input     type="text" required placeholder="Username *" name="loginname"  id="loginname"  class="form-control bg-white"/>
+								</div>
+								<div class="form-group">
+									<div class="row" role="form">
+								
+									<div class="col-md-6">
+										<div style="position: relative;">
+											<input 
+											  type="password" 
+											  class="form-control" 
+											  id="pass1"
+											  name="password"
+											  placeholder="Enter Password"
+											  required
+											  pattern="(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}"
+											  title="Password must contain at least 1 uppercase letter, 1 number, and 1 special character"
+											/>
+											<i 
+											  class="fa-solid fa-eye" 
+											  id="togglePassword"
+											  onclick="togglePassVisibility()"
+											  style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); cursor: pointer; color: #888;"
+											></i>
+										  </div>
+										  
+										  <!-- Toggle Password Script -->
+										  <script>
+											function togglePassVisibility() {
+											  const password = document.getElementById("pass1");
+											  const icon = document.getElementById("togglePassword");
+											  
+											  const isPassword = password.type === "password";
+											  password.type = isPassword ? "text" : "password";
+										  
+											  icon.classList.toggle("fa-eye");
+											  icon.classList.toggle("fa-eye-slash");
+											}
+										  </script>
+									
+								</div>
+							</div>
+								
+								<div class="form-group">
+								<div class="clearfix"></div>
+								<div class="buttons-box clearfix">
+									<input    class="col-sm-offset-5 btn full btn-primary" type="submit" value="Register Now"  >
+								</div>
+								<hr/>
+									
+								<!-- .buttons-box -->
+						</form>
+						
+						</div>
+
+					</div>
+
+				</div>
+
+
+				
+			</div>
+
+		</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+		
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script type="text/javascript" src="js/functions.js"></script>
+
+</body>
+</html>
+</div>
+
+
+</body>
+</html>

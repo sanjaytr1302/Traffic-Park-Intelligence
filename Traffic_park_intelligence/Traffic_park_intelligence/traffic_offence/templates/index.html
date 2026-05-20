@@ -1,0 +1,454 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    {% block external_css %}
+    {% include 'extern_files.html' %}
+    {% endblock %}
+
+<style>
+		#footer{
+			height:30px;
+			
+		}
+		.slider-caption.slider-caption-center {
+		top:100px!important;
+		left:-55px!important;
+		}
+		.bottommargin-lg {
+    margin-bottom: 0px !important;
+}
+.content-wrap{
+	padding-bottom:0px!important;
+}
+</style>
+</head>
+<body class="stretched">
+
+<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		{% block home_navbar %}
+		{% include 'home_navbar.html' %}
+		{% endblock %}
+				    
+	{% for msg in messages %}
+	<script>alert('{{ msg|safe }}');</script>
+  {% endfor %}	
+
+		<section id="slider" class="slider-parallax swiper_wrapper full-screen clearfix">
+
+			<div class="swiper-container swiper-parent">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide dark" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/578/291/761/netherlands-dark-road-traffic-wallpaper-preview.jpg');">
+						<div class="container clearfix">
+							<div class="slider-caption slider-caption-center">
+								<h2 data-caption-animate="fadeInUp" style="
+								width: 967px;
+							">Welcome to <br/>Traffic Park Intelligence</h2>
+								
+							</div>
+						</div>
+					</div>
+					
+					
+				</div>
+			</div>
+
+			<script>
+				jQuery(document).ready(function($){
+					var swiperSlider = new Swiper('.swiper-parent',{
+						paginationClickable: false,
+						slidesPerView: 1,
+						grabCursor: true,
+						onSwiperCreated: function(swiper){
+							$('[data-caption-animate]').each(function(){
+								var $toAnimateElement = $(this);
+								var toAnimateDelay = $(this).attr('data-caption-delay');
+								var toAnimateDelayTime = 0;
+								if( toAnimateDelay ) { toAnimateDelayTime = Number( toAnimateDelay ) + 750; } else { toAnimateDelayTime = 750; }
+								if( !$toAnimateElement.hasClass('animated') ) {
+									$toAnimateElement.addClass('not-animated');
+									var elementAnimation = $toAnimateElement.attr('data-caption-animate');
+									setTimeout(function() {
+										$toAnimateElement.removeClass('not-animated').addClass( elementAnimation + ' animated');
+									}, toAnimateDelayTime);
+								}
+							});
+						},
+						onSlideChangeStart: function(swiper){
+							$('#slide-number-current').html(swiper.activeIndex + 1);
+							$('[data-caption-animate]').each(function(){
+								var $toAnimateElement = $(this);
+								var elementAnimation = $toAnimateElement.attr('data-caption-animate');
+								$toAnimateElement.removeClass('animated').removeClass(elementAnimation).addClass('not-animated');
+							});
+						},
+						onSlideChangeEnd: function(swiper){
+							$('#slider .swiper-slide').each(function(){
+								if($(this).find('video').length > 0) { $(this).find('video').get(0).pause(); }
+							});
+							$('#slider .swiper-slide:not(".swiper-slide-active")').each(function(){
+								if($(this).find('video').length > 0) {
+									if($(this).find('video').get(0).currentTime != 0 ) $(this).find('video').get(0).currentTime = 0;
+								}
+							});
+							if( $('#slider .swiper-slide.swiper-slide-active').find('video').length > 0 ) { $('#slider .swiper-slide.swiper-slide-active').find('video').get(0).play(); }
+
+							$('#slider .swiper-slide.swiper-slide-active [data-caption-animate]').each(function(){
+								var $toAnimateElement = $(this);
+								var toAnimateDelay = $(this).attr('data-caption-delay');
+								var toAnimateDelayTime = 0;
+								if( toAnimateDelay ) { toAnimateDelayTime = Number( toAnimateDelay ) + 300; } else { toAnimateDelayTime = 300; }
+								if( !$toAnimateElement.hasClass('animated') ) {
+									$toAnimateElement.addClass('not-animated');
+									var elementAnimation = $toAnimateElement.attr('data-caption-animate');
+									setTimeout(function() {
+										$toAnimateElement.removeClass('not-animated').addClass( elementAnimation + ' animated');
+									}, toAnimateDelayTime);
+								}
+							});
+						}
+					});
+
+					$('#slider-arrow-left').on('click', function(e){
+						e.preventDefault();
+						swiperSlider.swipePrev();
+					});
+
+					$('#slider-arrow-right').on('click', function(e){
+						e.preventDefault();
+						swiperSlider.swipeNext();
+					});
+
+					$('#slide-number-current').html(swiperSlider.activeIndex + 1);
+					$('#slide-number-total').html(swiperSlider.slides.length);
+				});
+			</script>
+
+		</section>
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap" >
+
+				<div class="section header-stick"  style="background-image:url('images/road.jpg');background-repeat:no-repeat; background-position:center; background-width:100%;background-height:800px; padding:20px 0px;">
+					<div class="container clearfix">
+						<div class="row">
+
+						
+<!--
+							<div class="col-md-3">
+								<a href="#" class="button button-3d button-dark button-large btn-block center" style="margin-top: 30px;">Check our Services</a>
+							</div>
+-->
+						</div>
+					</div>
+				</div>
+
+				<div class="container clearfix">
+
+					<div class="col_one_third nobottommargin">
+						<div class="feature-box media-box">
+							<div class="fbox-media">
+								<img src="{% static 'images/car-accident.jpg' %}" alt="Why choose Us?">
+							</div>
+							<div class="fbox-desc">
+								<h3>Tips to Help You from getting into a Car Accident</h3>
+								<p>You never know when you might crash into another vehicle or vice versa. Auto accidents can happen even when you think that no one in the world drives as carefully as you do. Keeping a few important driving tips can help keep you safe, and save other people’s lives as well. Here are a few top tips to prevent you from getting into a car accident:</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col_one_third nobottommargin">
+						<div class="feature-box media-box">
+							<div class="fbox-media">
+								<img src="{% static 'images/texting-and-driving.jpg' %}" alt="Why choose Us?">
+							</div>
+							<div class="fbox-desc">
+								<h3>What are You Risking by Texting and Driving?</h3>
+								<p>More and more provinces and localities are prohibiting the use of cell phones while driving. The evidence is clear that texting or using a cell phone while driving significantly increases the risk of being involved in an accident, and laws have been put in place in order to lower the amount of accidents that occur due to distracted driving and punish those who violate those laws. However, you can get a lot more than a ticket if you get into an accident while texting and driving or using your cell phone.</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col_one_third nobottommargin col_last">
+						<div class="feature-box media-box">
+							<div class="fbox-media">
+								<img src="{% static 'images/drunkanddrive.jpg' %}" class="img-responsive"width="100%" height="200px;" alt="Why choose Us?">
+							</div>
+							<div class="fbox-desc">
+								<h3>Drunk and Drive</h3>
+								<p>As per the Motor Vehicle Act, driving by a drunken person or by a person under the influence of drugs is punishable for the first offence with imprisonment for a term of upto six months and/or with fine which may extend to two thousand rupees. Second or subsequent offence, if committed within three years of similar offence is punishable with imprisonment for a term of upto two years and/or with fine of three thousand rupees..</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="clear"></div>
+
+				</div>
+
+				<div class="section parallax bottommargin-lg" style="background:#FFD005; padding: 70px 0;" data-stellar-background-ratio="0.3">
+					<div class="heading-block center nobottomborder nobottommargin">
+						<h2>"Slow Drive & Follow The Traffic Rules"</h2>
+					</div>
+				</div>
+
+				<!--
+				<div class="container clearfix">
+
+					<div class="row">
+					<div class="col-sm-offset-2 col-md-8 bottommargin">
+						<ul class="nav nav-tabs">
+						  <li class="active"><a data-toggle="tab" href="#home">Find My Complaints</a></li>
+						  <li><a data-toggle="tab" href="#menu1">Found Vehicles</a></li>
+						  <li><a data-toggle="tab" href="#menu2">No Parking Complaints</a></li>
+						</ul>
+
+						<div class="tab-content">
+						  <div id="home" class="tab-pane fade in active">
+							<div class="panel panel-primary">
+							<div class="panel-heading"><h3 class="panel-title">Find Traffic Violation Complaints</h3></div>
+							<div class="panel-body">
+							<form method="post" action=""  name="form2">
+									<div class="form-group">
+										<label  class="col-sm-5">Enter Vehicle No</label>
+										<div class="col-sm-5"><input type="text" name="Vehicle_num" placeholder="Enter Vehicle No"  />
+										</div>
+										<div class="col-sm-2">
+									<input type="submit"  class="btn btn-primary" name="submit1"/>
+									</div></div>
+							   </form>
+							   
+							   <table class="table">
+							   <tr>
+								  <th>Vehicle No</th>
+								  <th>Violation Date</th>
+								  <th>Violation Place</th>
+								  <th>Violation type</th>
+								 
+								  <th>Fine</th>
+								  <th>Fine Status</th>
+								  
+								  
+							  </tr>
+							 
+						<?php 
+							  if(isset($_POST['submit1']))
+							  {
+								$vehicle=$_POST['Vehicle_num'];
+								
+								 
+								 $sql1="select * from register_traffic_offence where vehicle_regno='$vehicle'";
+								 $re=mysqli_query($connection,$sql1);
+							 
+							 while($m=mysqli_fetch_assoc($re))
+							 {
+								 $vehicle_regno=$m['Vehicle_Regno'];
+								 $Violation_Date=$m['Violation_Date'];
+								 $Violation_place=$m['Violation_place'];
+								 $Violation_type=$m['Violation_type'];
+								 $FineStatus=$m['FineStatus'];
+								 
+								 $Fine=$m['Fine'];
+								 
+								
+								 
+							  
+							 ?>
+							 <tr>
+								<td><?php echo $vehicle_regno; ?></td>
+								<td><?php echo $Violation_Date; ?></td>
+								<td><?php echo $Violation_place; ?></td>
+								<td><?php echo $Violation_type; ?></td>
+								<td><?php echo $Fine; ?></td>
+								<td><?php echo $FineStatus; ?></td>
+								
+							</tr>
+							  <?php }}?>
+							</table>
+							</div>
+						</div>
+
+						  </div>
+						  <div id="menu1" class="tab-pane fade">
+							<div class="panel panel-primary">
+							<div class="panel-heading"><h3 class="panel-title">Find Found Vehicles</h3></div>
+							<div class="panel-body" align="center">
+							<form method="post" action="" class="form-horizontal" name="form2" autofill="off">
+									<div class="form-group">
+										<label class="col-sm-5">Enter Vehicle No</label><div class="col-sm-5"><input type="text" name="Vehicle_num" placeholder="Enter Vehicle No" /></div>
+									</div>
+									<div class="form-group">
+										<label  class="col-sm-5">Enter Engine No</label><div class="col-sm-5"><input type="text" name="eng_num" placeholder="Enter Engine No" /></div>
+								
+								<div class="col-sm-2">
+									<input type="submit"  class="btn btn-primary btn-block" name="search"/>
+									</div>
+							   </form>
+							   
+							   <table class="table">
+							   <tr>
+								  <th>Vehicle Name</th>
+								  <th>Vehicle Num</th>
+								  <th>Engine Num</th>
+								  <th>Vehicle FoundCity</th>
+								 
+								  <th>Vehicle Pic</th>
+								  
+							  </tr>
+							 
+						<?php 
+							  if(isset($_POST['search']))
+							  {
+								$vehicle=$_POST['Vehicle_num'];
+								$eng_num=$_POST['eng_num'];
+								
+								if($vehicle!="" and $eng_num!="")
+								{
+								 $sql12="select * from foundvehicle where vehicle_num='$vehicle' and engine_num='$eng_num'";
+								 $res=mysqli_query($connection,$sql12);
+							 
+							 while($s=mysqli_fetch_assoc($res))
+							 {
+								 $vehicle_name=$s['vehicle_name'];
+								 $vehicle_num=$s['vehicle_num'];
+								 $engine_num=$s['engine_num'];
+								 $vehicle_foundcity=$s['vehicle_foundcity'];
+								 $vehicle_pic=$s['vehicle_pic'];
+								 
+							 ?>
+							 <tr>
+								<td><?php echo $vehicle_name; ?></td>
+								<td><?php echo $vehicle_num; ?></td>
+								<td><?php echo $engine_num; ?></td>
+								<td><?php echo $vehicle_foundcity; ?></td>
+								<td><img src="upload/<?php echo $vehicle_pic; ?>" width="100%" height="150px;"/></td>
+							
+							</tr>
+							  <?php }}}?>
+							</table>
+							</div>
+						</div>
+					</div>
+						  </div>
+						  <div id="menu2" class="tab-pane fade">
+							<div class="panel panel-primary">
+							<div class="panel-heading"><h3 class="panel-title">Find No Parking Vehicle Details</h3></div>
+							<div class="panel-body">
+							<form method="post" action=""  name="form2">
+									<div class="form-group">
+										<label  class="col-sm-5">Enter Vehicle No</label>
+										<div class="col-sm-5"><input type="text" name="Vehicle_num" placeholder="Enter Vehicle No"  />
+										</div>
+										<div class="col-sm-2">
+									<input type="submit"  class="btn btn-primary btn-block" name="submit3"/>
+									</div></div>
+							   </form>
+							   
+							   <table class="table">
+							   <tr>
+								  <th>Vehicle Name</th>
+								  <th>Violation Number</th>
+								  <th>Violation address</th>
+								  <th>Landmark</th>
+								  <th>Complaint</th>
+								  <th>Violation Date</th>
+								  <th>View Station Details</th>
+								  
+						
+							  </tr>
+							 
+						<?php 
+							  if(isset($_POST['submit3']))
+							  {
+								$vehicle=$_POST['Vehicle_num'];
+								 $sql1="select * from no_parking where vnum='$vehicle'";
+								 $re=mysqli_query($connection,$sql1);
+							 
+							 while($m=mysqli_fetch_assoc($re))
+							 {
+								 $vname=$m['vname'];
+								 $vnum=$m['vnum'];
+								 $vaddr=$m['vaddr'];
+								 $vnear_by=$m['vnear_by'];
+								 $v_lift_typ=$m['v_lift_typ'];
+								 $collect_date=$m['collect_date'];
+								$Tiger_id=$m['Tiger_id'];
+								
+								 
+							 ?>
+							 <tr>
+								<td><?php echo $vname; ?></td>
+								<td><?php echo $vnum; ?></td>
+								<td><?php echo $vaddr; ?></td>
+								<td><?php echo $vnear_by; ?></td>
+								<td><?php echo $v_lift_typ; ?></td>
+								<td><?php echo $collect_date; ?></td>
+								<?php if($v_lift_typ=='Wheel Lock'){ ?>
+								<td><form action="fetch_police_details.php" method="post" >
+										<input type="text" required hidden name="police_id" value="<?php echo $Tiger_id; ?>" />
+										<input type="submit" value="Search" class="btn btn-danger small nomargin">
+								</td>
+								<?php }else if($v_lift_typ=='Lift'){ ?>
+								<td>
+									<form action="fetch_station.php" method="post" >
+										<input type="text" required hidden name="police_id" value="<?php echo $Tiger_id; ?>" />
+										<input type="submit" value="Search" class="btn btn-success small nomargin">
+									</form>
+								</td>
+								<?php } ?>
+							 </form>
+							</tr>
+							
+							  <?php }}?>
+							</table>
+							</div>
+						</div>
+
+						  </div>
+						</div>
+						
+						
+						
+
+					</div>
+								-->
+				</div>
+			</div>
+		</div>
+	</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+		<footer id="footer" class="dark">
+		
+		</footer><!-- #footer end -->
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- Footer Scripts
+	============================================= -->
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+				
+			

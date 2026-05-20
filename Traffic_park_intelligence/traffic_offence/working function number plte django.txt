@@ -1,0 +1,98 @@
+if request.method=="POST":
+        #print("Hello")
+        #track_image=request.POST['v_img']
+        #print(track_image)
+        #img = cv2.imread(track_image)
+        # Debugging print statements to check paths
+
+        image_path = request.POST['v_img']
+        print(f"Image Path: {image_path}")
+        
+        # Remove the '/media' prefix from the image path
+        if image_path.startswith('/media'):
+            image_path = image_path[6:]  # Remove '/media' part
+        
+        # Now combine it with the MEDIA_ROOT to get the full absolute path
+        absolute_path = os.path.join(settings.MEDIA_ROOT, image_path.lstrip('/'))
+        print(f"Absolute Path: {absolute_path}")
+        print('*' * 50)
+        print(f"MEDIA_ROOT: {settings.MEDIA_ROOT}")
+        print(f"Image Path: {image_path}")
+        print(f"Absolute Path: {absolute_path}")
+        print('*' * 50)
+        
+
+        # Ensure the final path is correct
+        if not os.path.exists(absolute_path):
+            print("Image file not found at the path.")
+            return render(request, 'error_page.html')  # Render an error page or message
+        
+        # Read the image from the server's absolute path
+        img = cv2.imread(absolute_path)
+
+        # Check if the image is loaded correctly
+        if img is None:
+            print("Error: Image not found!")
+            exit()
+
+        # Create a resizable window
+        cv2.namedWindow("Select Number Plate", cv2.WINDOW_NORMAL)
+
+        # Let the user manually select the number plate region
+        roi = cv2.selectROI("Select Number Plate", img, fromCenter=False, showCrosshair=True)
+        cv2.destroyWindow("Select Number Plate")
+
+        # Extract selected region
+        x, y, w, h = roi
+
+        if w == 0 or h == 0:
+            print("No region selected!")
+            exit()
+
+        # Zoom into selected region (scale up)
+        zoom_factor = 3  # Increase to 3x for better clarity
+        plate_roi = cv2.resize(img[y:y+h, x:x+w], None, fx=zoom_factor, fy=zoom_factor, interpolation=cv2.INTER_CUBIC)
+
+        # Convert to grayscale
+        gray_plate = cv2.cvtColor(plate_roi, cv2.COLOR_BGR2GRAY)
+
+        # === Image Preprocessing for Better OCR ===
+        gray_plate = cv2.GaussianBlur(gray_plate, (3, 3), 0)  # Reduce noise
+        gray_plate = cv2.equalizeHist(gray_plate)  # Improve contrast
+        gray_plate = cv2.threshold(gray_plate, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]  # Binarization
+
+        # Morphological operations to refine edges
+        kernel = np.ones((2, 2), np.uint8)
+        gray_plate = cv2.morphologyEx(gray_plate, cv2.MORPH_CLOSE, kernel)
+        gray_plate = cv2.morphologyEx(gray_plate, cv2.MORPH_OPEN, kernel)
+
+        # Sharpen image
+        sharpen_kernel = np.array([[-1, -1, -1], [-1, 9, -1], [-1, -1, -1]])
+        gray_plate = cv2.filter2D(gray_plate, -1, sharpen_kernel)
+
+        # Try OCR with EasyOCR
+        easyocr_text = reader.readtext(gray_plate)
+        plate_easyocr = " ".join([text[1] for text in easyocr_text]) if easyocr_text else "No text detected"
+
+        # Try OCR with Tesseract
+        plate_tesseract = pytesseract.image_to_string(gray_plate, config='--psm 8 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+
+        # Choose the best result
+        plate_number = plate_easyocr if len(plate_easyocr) > len(plate_tesseract.strip()) else plate_tesseract.strip()
+
+        # Show detected text
+        print("Detected Plate Number:", plate_number)
+
+        # Draw rectangle around selected area on original image
+        cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        cv2.putText(img, plate_number, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+        # Show the selected & zoomed number plate
+        cv2.imshow('Zoomed Plate', plate_roi)
+
+        # Show the original image with detection
+        cv2.namedWindow("Detected Plate", cv2.WINDOW_NORMAL)
+        cv2.imshow('Detected Plate', img)
+
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
